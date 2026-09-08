@@ -2,13 +2,13 @@
 
 module tb_MAC_20cases;
 
-    // --- ThÙng s? c?u hÏnh ---
+    // --- Th√¥ng s? c?u h√¨nh ---
     localparam WADDR_WIDTH  = 3;
     localparam WDATA_DWIDTH = 32;
     localparam RADDR_WIDTH  = 1;
     localparam RDATA_DWIDTH = 32;
 
-    // --- Khai b·o tÌn hi?u ---
+    // --- Khai b√°o t√≠n hi?u ---
     reg                      CLK;
     reg                      RST;
     reg [WADDR_WIDTH-1:0]    waddr_i;
@@ -87,7 +87,7 @@ module tb_MAC_20cases;
         begin
             test_index = test_index + 1;
             
-            // 1. Chuy?n tr?ng th·i LOAD
+            // 1. Chuy?n tr?ng th√°i LOAD
             write_data(LOAD_FLAG_ADDR, 32'd1);
             
             // 2. N?p d? li?u
@@ -95,17 +95,17 @@ module tb_MAC_20cases;
             write_data(X_ADDR, x_val);
             write_data(B_ADDR, b_val);
             
-            // 3. B?t ??u tÌnh to·n
+            // 3. B?t ??u t√≠nh to√°n
             write_data(START_FLAG_ADDR, 32'd1);
             
-            // Ch? FSM x? l˝
+            // Ch? FSM x? l√Ω
             #40;
             
             // 4. ??c k?t qu?
             read_data(1'b0);
             #10; 
             
-            // 5. So s·nh k?t qu?
+            // 5. So s√°nh k?t qu?
             if (rdata_o == expected_y) begin
                 $display("[Test %0d] PASS: %0d * %0d + %0d = %0d", test_index, a_val, x_val, b_val, rdata_o);
                 pass_count = pass_count + 1;
@@ -114,7 +114,7 @@ module tb_MAC_20cases;
                 fail_count = fail_count + 1;
             end
             
-            // L?NH QUAN TR?NG: XÛa c? Done ?? FSM quay v? vÚng l?p m?i
+            // L?NH QUAN TR?NG: X√≥a c? Done ?? FSM quay v? v√≤ng l?p m?i
             write_data(DONE_FLAG_ADDR, 32'd1);
             
             #20;
@@ -160,13 +160,13 @@ module tb_MAC_20cases;
         $display("                TEST SUMMARY               ");
         $display("===========================================");
         $display("T?ng s? Test Cases: %0d", pass_count + fail_count);
-        $display("Th‡nh cÙng (PASS) : %0d", pass_count);
+        $display("Th√†nh c√¥ng (PASS) : %0d", pass_count);
         $display("Th?t b?i   (FAIL) : %0d", fail_count);
         
         if (fail_count == 0)
-            $display(">>> K?T LU?N: M?CH HO?T ??NG CHÕNH X¡C 100% <<<");
+            $display(">>> K?T LU?N: M?CH HO?T ??NG CH√çNH X√ÅC 100% <<<");
         else
-            $display(">>> K?T LU?N: M?CH C” L?I, C?N KI?M TRA L?I <<<");
+            $display(">>> K?T LU?N: M?CH C√ì L?I, C?N KI?M TRA L?I <<<");
         $display("===========================================");
 
         #50;
