@@ -2,13 +2,13 @@
 
 module tb_MAC_50cases;
 
-    // --- ThÙng s? c?u hÏnh ---
+    // --- Th√¥ng s? c?u h√¨nh ---
     localparam WADDR_WIDTH  = 3;
     localparam WDATA_DWIDTH = 32;
     localparam RADDR_WIDTH  = 1;
     localparam RDATA_DWIDTH = 32;
 
-    // --- Khai b·o tÌn hi?u ---
+    // --- Khai b√°o t√≠n hi?u ---
     reg                      CLK;
     reg                      RST;
     reg [WADDR_WIDTH-1:0]    waddr_i;
@@ -21,7 +21,7 @@ module tb_MAC_50cases;
     integer pass_count = 0;
     integer fail_count = 0;
     integer test_index = 0;
-    integer i; // Bi?n cho vÚng l?p for
+    integer i; // Bi?n cho v√≤ng l?p for
 
     // --- Kh?i t?o module MAC (DUT) ---
     MAC #(
@@ -80,7 +80,7 @@ module tb_MAC_50cases;
     task run_test_auto(input [31:0] a_val, input [31:0] x_val, input [31:0] b_val);
         reg [31:0] expected_y;
         begin
-            // T? ??ng tÌnh k?t qu? ?˙ng ?? so s·nh
+            // T? ??ng t√≠nh k?t qu? ?√∫ng ?? so s√°nh
             expected_y = a_val * x_val + b_val; 
             test_index = test_index + 1;
             
@@ -92,7 +92,7 @@ module tb_MAC_50cases;
             
             write_data(START_FLAG_ADDR, 32'd1);
             
-            #40; // ??i FSM x? l˝ (?? cho c? Single-cycle v‡ Pipeline)
+            #40; // ??i FSM x? l√Ω (?? cho c? Single-cycle v√† Pipeline)
             
             read_data(1'b0);
             #10; 
@@ -126,8 +126,8 @@ module tb_MAC_50cases;
         $display("          B?T ??U CH?Y 50 TEST CASES       ");
         $display("===========================================");
 
-        // --- 10 Edge Cases (Tr??ng h?p gÛc c?n ki?m tra k?) ---
-        run_test_auto(10,    5,     7);     // Test 1: BÏnh th??ng
+        // --- 10 Edge Cases (Tr??ng h?p g√≥c c?n ki?m tra k?) ---
+        run_test_auto(10,    5,     7);     // Test 1: B√¨nh th??ng
         run_test_auto(0,     5,     7);     // Test 2: A = 0
         run_test_auto(10,    0,     7);     // Test 3: X = 0
         run_test_auto(10,    5,     0);     // Test 4: B = 0
@@ -138,8 +138,8 @@ module tb_MAC_50cases;
         run_test_auto(65535, 2,     0);     // Test 9: Max 16-bit
         run_test_auto(999,   999,   999);   // Test 10: S? l?
 
-        // --- 40 Random Cases (Tr??ng h?p ng?u nhiÍn) ---
-        // S? d?ng $random % 10000 ?? gi?i h?n gi· tr? khÙng qu· l?n tr·nh tr‡n s? 32-bit
+        // --- 40 Random Cases (Tr??ng h?p ng?u nhi√™n) ---
+        // S? d?ng $random % 10000 ?? gi?i h?n gi√° tr? kh√¥ng qu√° l?n tr√°nh tr√†n s? 32-bit
         for (i = 0; i < 40; i = i + 1) begin
             run_test_auto(
                 {$random} % 5000,   // Random A t? 0 ??n 4999
@@ -148,18 +148,18 @@ module tb_MAC_50cases;
             );
         end
         
-        // --- T?ng k?t b·o c·o ---
+        // --- T?ng k?t b√°o c√°o ---
         $display("===========================================");
         $display("                TEST SUMMARY               ");
         $display("===========================================");
         $display("T?ng s? Test Cases: %0d", pass_count + fail_count);
-        $display("Th‡nh cÙng (PASS) : %0d", pass_count);
+        $display("Th√†nh c√¥ng (PASS) : %0d", pass_count);
         $display("Th?t b?i   (FAIL) : %0d", fail_count);
         
         if (fail_count == 0)
-            $display(">>> K?T LU?N: M?CH HO?T ??NG CHÕNH X¡C 100% <<<");
+            $display(">>> K?T LU?N: M?CH HO?T ??NG CH√çNH X√ÅC 100% <<<");
         else
-            $display(">>> K?T LU?N: M?CH C” L?I, C?N KI?M TRA L?I <<<");
+            $display(">>> K?T LU?N: M?CH C√ì L?I, C?N KI?M TRA L?I <<<");
         $display("===========================================");
 
         #50;
